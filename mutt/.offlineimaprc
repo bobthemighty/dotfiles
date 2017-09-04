@@ -1,0 +1,33 @@
+[general]
+ui = TTY.TTYUI
+accounts = made
+pythonfile=~/.config/offlineimap/offlineimap.py
+fsync = False
+
+[Account made]
+localrepository = made-Local
+remoterepository = made-Remote
+postsynchook = notmuch new
+
+[Repository made-Local]
+type = Maildir
+localfolders = ~/.mail/bob-made.com
+nametrans = lambda folder: {'drafts':  '[Gmail]/Drafts',
+                            'sent':    '[Gmail]/Sent Mail',
+                            'flagged': '[Gmail]/Starred',
+                            'trash':   '[Gmail]/Trash',
+                            'archive': '[Gmail]/All Mail',
+                            }.get(folder, folder)
+[Repository made-Remote]
+maxconnections = 1
+type = Gmail
+remoteuser = bob.gregory@made.com
+remotepasseval = get_pass('bob.gregory')
+realdelete = no
+nametrans = lambda folder: {'[Gmail]/Drafts':    'drafts',
+                            '[Gmail]/Sent Mail': 'sent',
+                            '[Gmail]/Starred':   'flagged',
+                            '[Gmail]/Trash':     'trash',
+                            '[Gmail]/All Mail':  'archive',
+                            }.get(folder, folder)
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
