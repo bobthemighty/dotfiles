@@ -65,3 +65,4 @@ URxvt*visualBell              : false
 
 urxvt*transparent: true
 urxvt*shading: 25 
+urxvt*fading: 50 

@@ -1,13 +1,13 @@
 [general]
 ui = TTY.TTYUI
-accounts = made
+accounts = made,pathogenix
 pythonfile=~/.config/offlineimap/offlineimap.py
 fsync = False
 
 [Account made]
 localrepository = made-Local
 remoterepository = made-Remote
-postsynchook = notmuch new
+postsynchook = ~/.config/offlineimap/notmuch-hook-work.sh
 
 [Repository made-Local]
 type = Maildir
@@ -31,3 +31,36 @@ nametrans = lambda folder: {'[Gmail]/Drafts':    'drafts',
                             '[Gmail]/All Mail':  'archive',
                             }.get(folder, folder)
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+
+
+[Account pathogenix]
+localrepository = pathogenix-Local
+remoterepository = pathogenix-Remote
+postsynchook = ~/.config/offlineimap/notmuch-hook-personal.sh
+
+[Repository pathogenix-Local]
+type = Maildir
+localfolders = ~/.mail/pathogenix
+nametrans = lambda folder: {'drafts':  '[Gmail]/Drafts',
+                            'sent':    '[Gmail]/Sent Mail',
+                            'flagged': '[Gmail]/Starred',
+                            'trash':   '[Gmail]/Bin',
+                            'archive': '[Gmail]/All Mail',
+                            }.get(folder, folder)
+
+
+[Repository pathogenix-Remote]
+maxconnections = 1
+type = Gmail
+remoteuser = pathogenix@gmail.com
+remotepasseval = get_pass('pathogenix')
+realdelete = no
+nametrans = lambda folder: {'[Gmail]/Drafts':    'drafts',
+                            '[Gmail]/Sent Mail': 'sent',
+                            '[Gmail]/Starred':   'flagged',
+                            '[Gmail]/Bin':     'trash',
+                            '[Gmail]/All Mail':  'archive',
+                            }.get(folder, folder)
+
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+folderfilter = lambda folder: folder.startswith('[Gmail]/') and folder not in ["[Gmail]/Spam", "[Gmail]/Bin"]

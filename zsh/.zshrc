@@ -87,9 +87,16 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 alias ls=exa
 
+bindkey -v
 bindkey '^R' history-incremental-search-backward
 source <(awless completion zsh)
+source /usr/share/fzf/completion.zsh
 
 
 autoload -U +X bashcompinit && bashcompinit
 complete -C /usr/local/bin/nomad nomad
+
+
+# FZFFS
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"

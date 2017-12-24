@@ -1,0 +1,7 @@
+[user]
+	email = bob@made.com
+	name = Bob Gregory
+[core]
+	trustctime = false
+[init]
+	templatedir = ~/.git_template
