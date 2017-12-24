@@ -11,7 +11,7 @@ set tm=500
 set encoding=utf8
 set ffs=unix,dos,mac
 let g:user_zen_mode='a'
-set tags=./tags,tags;
+set tags=.git/tags,./tags,tags;
 " }}}
 "
 " Colours {{{
