@@ -1,0 +1,21 @@
+
+virtual-mailboxes "work/inbox" "notmuch://?query=tag:inbox AND tag:work AND not tag:todo"
+virtual-mailboxes "work/todo" "notmuch://?query=tag:todo AND not tag:trash AND tag:work AND not tag:archive"
+virtual-mailboxes "work/alert" "notmuch://?query=tag:alert AND not tag:trash"
+virtual-mailboxes "work/reports" "notmuch://?query=tag:report AND not tag:trash"
+virtual-mailboxes "work/announcements" "notmuch://?query=tag:announce AND tag:work AND not tag:trash"
+virtual-mailboxes "work/calendar" "notmuch://?query=tag:cal AND tag:work AND not tag:trash"
+virtual-mailboxes "work/facebook-spam" "notmuch://?query=tag:fbwork AND tag:work AND not tag:trash"
+
+virtual-mailboxes "personal/inbox" "notmuch://?query=tag:inbox AND tag:personal"
+virtual-mailboxes "personal/todo" "notmuch://?query=tag:todo AND not tag:trash AND tag:personal"
+
+virtual-mailboxes "sent" "notmuch://?query=tag:sent"
+virtual-mailboxes "newsletters" "notmuch://?query=tag:newsletters AND not tag:archive and NOT tag:trash"
+virtual-mailboxes "meetup" "notmuch://?query=tag:meetup AND not tag:archive and NOT tag:trash"
+virtual-mailboxes "github" "notmuch://?query=tag:github_notification and NOT tag:archive and NOT tag:trash"
+virtual-mailboxes "rsyslog" "notmuch://?query=tag:rsyslog and NOT tag:archive and NOT tag:trash"
+virtual-mailboxes "error" "notmuch://?query=tag:error and NOT tag:trash"
+
+virtual-mailboxes "family/school/warwick" "notmuch://?query=tag:warwick and NOT tag:trash"
+virtual-mailboxes "family/school/wray-common" "notmuch://?query=tag:wraycommon and NOT tag:trash"
