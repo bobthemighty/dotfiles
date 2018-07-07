@@ -112,7 +112,6 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 " save session
 nnoremap <leader>s :mksession<CR>
 " open ag.vim
-nnoremap <leader>a :Ag
 " Close the current buffer
 map <leader>bd :Bclose<cr>
 " Close all the buffers
@@ -124,6 +123,9 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
+"{{{ Youcompleteme
+Plugin 'Valloric/YouCompleteMe'
+" }}}
 
 " {{{ Nerdtree
 Plugin 'scrooloose/NerdTree'
@@ -151,21 +153,16 @@ command! -bang -nargs=* Rg
       \           : fzf#vim#with_preview('right:50%:hidden', '?'),
       \   <bang>0)
 
-nnoremap <leader>a :Rg
+nnoremap <leader>a :Rg<Space>
 
 " }}}
 
 " {{{ Easymotion
 Plugin 'easymotion/vim-easymotion'
-nmap <Leader>f <Plug>(easymotion-overwin-f)
 nmap  <Leader>gw <Plug>(easymotion-bd-w)
 nmap  <Leader>L <Plug>(easymotion-bd-jk)
 
-Plugin 'haya14busa/incsearch.vim'
-Plugin 'haya14busa/incsearch-fuzzy.vim'
-Plugin 'haya14busa/incsearch-easymotion.vim'
-
-map / <Plug>(incsearch-easymotion-/)
+let g:EasyMotion_smartcase = 1
 " }}}
 
 " {{{ lightline
@@ -219,7 +216,7 @@ nnoremap <leader>d :call fzf#vim#tags(expand('<cword>'), {'options': '--exact --
 
 " {{{ Tagbar
 Plugin 'majutsushi/tagbar'
-nmap <leader>tb :TagbarToggle<CR>
+nmap <leader>st :TagbarToggle<CR>
 " }}}
 "
 "{{{ vim-go
@@ -239,8 +236,8 @@ set undofile
 set undodir=~/.vim/undo
 " }}}
 Plugin 'luochen1990/rainbow'
-call vundle#end()
 " }}}
+
 
 " {{{ Backup
 set backup
@@ -252,6 +249,15 @@ set writebackup
 
 " {{{ Ale
 Plugin 'w0rp/ale'
+let g:ale_fixers = {
+\        'python': [
+\           'add_blank_lines_for_python_control_statements',
+\           'isort',
+\           'yapf'
+\           ],
+\        'javascript': ['prettier', 'remove_trailing_lines']
+\}
+nmap <Leader>f :ALEFix<CR>
 " }}}
 
 " {{{ Filetypes
@@ -261,10 +267,13 @@ Plugin 'derekwyatt/vim-scala'
 " }}}
 
 " {{{ Golang
-"
 " }}}
+call vundle#end()
+
+au BufNewFile,BufRead *.mjs set filetype=javascript
 
 " {{{ Python
+Plugin 'jmcantrell/vim-virtualenv'
 
 let python_highlight_all = 1
 au FileType python syn keyword pythonDecorator True None False self
@@ -285,7 +294,6 @@ au FileType python map <buffer> <leader>D ?def
 au FileType python set cindent
 au FileType python set cinkeys-=0#
 au FileType python set indentkeys-=0#
-au FileType python match ErrorMsg '\%>80.\='
 " }}}
 
 " {{{ yml section
