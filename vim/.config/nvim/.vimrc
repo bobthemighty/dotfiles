@@ -15,14 +15,9 @@ set tags=.git/tags,./tags,tags;
 " }}}
 "
 " Colours {{{
-colorscheme jellybeans
 syntax enable
 filetype indent on      " load filetype-specific indent files
 filetype plugin on      " load filetype-specific plugins
-let g:jellybeans_background_color_256='NONE'
-let g:jellybeans_overrides = {
-\    'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
-\}
 match Todo /\s\+$/      " set trailing spaces to have the 'todo' stylng
 " }}}
 "
@@ -118,6 +113,7 @@ map <leader>bd :Bclose<cr>
 map <leader>ba :1,1000 bd!<cr>
 " }}}
 
+
 " {{{ Plugins
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -127,6 +123,18 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'Valloric/YouCompleteMe'
 " }}}
 
+" {{{ Nord Colour Scheme
+Plugin 'arcticicestudio/nord-vim'
+let g:nord_italic = 1
+let g:nord_underline = 1
+let g:nord_italic_comments = 1
+let g:nord_uniform_status_lines = 1
+let g:nord_comment_brightness = 18
+let g:nord_cursor_line_number_background = 1
+
+colorscheme nord
+"}}}
+"
 " {{{ Nerdtree
 Plugin 'scrooloose/NerdTree'
 map <leader>nn :NERDTreeToggle<cr>

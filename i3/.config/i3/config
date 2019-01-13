@@ -141,16 +141,45 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
+set $nord0   #2E3440
+set $nord1   #3B4252
+set $nord2   #434C5E
+set $nord3   #4C566A
+set $nord4   #D8DEE9
+set $nord5   #E5E9F0
+set $nord6   #ECEFF4
+set $nord7   #8FBCBB
+set $nord8   #88C0D0
+set $nord9   #81A1C1
+set $nord10  #5E81AC
+set $nord11  #BF616A
+set $nord12  #D08770
+set $nord13  #EBCB8B
+set $nord14  #A3BE8C
+set $nord15 #B48EAD
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3blocks -c ~/.config/i3blocks/i3blocks.conf
+        status_command i3status-rs ~/.config/i3/config.toml
+        colors {
+              background $nord0
+              statusline $nord8
+
+              focused_workspace  $nord3  $nord8
+              active_workspace   $nord3  $nord8
+              inactive_workspace $nord8  $nord3
+              urgent_workspace $nord3 $nord15 
+      }
 }
 
 
 for_window [window_role="GtkFileChooserDialog"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [class="Rofi"] floating enable
 for_window [class="^.*"] border pixel 0
+for_window [class="Firefox"] move container to $workspace3, title_format "Firefox"
+for_window [class="Weechat"] move container to $workspace9
 
 bindsym $mod+semicolon exec "/usr/lib/i3blocks/notify pop"
 
