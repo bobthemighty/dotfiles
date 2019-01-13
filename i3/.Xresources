@@ -1,11 +1,3 @@
-! ROFI Color theme
-! ! ------------------------------------------------------------------------------
-rofi.color-enabled: true
-rofi.color-window: #393939, #393939, #268bd2
-rofi.color-normal: #393939, #ffffff, #393939, #268bd2, #ffffff
-rofi.color-active: #393939, #268bd2, #393939, #268bd2, #205171
-rofi.color-urgent: #393939, #f3843d, #393939, #268bd2, #ffc39c
-
 Xft.dpi: 220
 Xft.autohint: 0
 Xft.hintstyle:  hintfull
@@ -56,6 +48,14 @@ URxvt*boldFont: xft:FuraCode Nerd Font:style=Bold:pixelsize=30:antialias=true:hi
 *.color13: nord15
 *.color14: nord7
 *.color15: nord6
+!
+! ROFI Color theme
+! ! ------------------------------------------------------------------------------
+rofi.color-enabled: true
+rofi.color-window: nord1, nord1, nord0
+rofi.color-normal: nord1, nord5, nord1, nord1, nord7
+rofi.color-active: nord1, nord14, nord1, nord1, nord14
+rofi.color-urgent: nord1, nord8, nord1, nord1, nord8
 
 URxvt.scrollBar               : false
 URxvt*visualBell              : false
