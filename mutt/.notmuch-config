@@ -33,7 +33,7 @@ path=/home/bob/.mail
 [user]
 name=Bob Gregory
 primary_email=bob@made.com
-other_email=pathogenix@gmail.com;
+other_email=pathogenix@gmail.com;bob.gregory@made.com
 
 # Configuration for "notmuch new"
 #
@@ -51,7 +51,7 @@ other_email=pathogenix@gmail.com;
 #
 
 [new]
-tags=unread;inbox;
+tags=unread;inbox;new
 ignore=
 
 # Search configuration

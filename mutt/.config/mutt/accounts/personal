@@ -1,0 +1,17 @@
+unvirtual-mailboxes *
+
+# Account Settings -----------------------------------
+set realname = 'Bob Gregory' # default: (empty)
+set from = 'pathogenix@gmail.com' # default: (empty)
+set sendmail = "/usr/bin/msmtp -a personal"
+set sendmail_wait = 0
+unset record
+
+virtual-mailboxes "inbox" "notmuch://?query=tag:inbox AND tag:personal AND not tag:archived AND not tag:trash"
+virtual-mailboxes "todo" "notmuch://?query=tag:todo AND tag:personal AND not tag:archived AND not tag:trash"
+virtual-mailboxes "alert" "notmuch://?query=tag:alert AND not tag:trash"
+virtual-mailboxes "reports" "notmuch://?query=tag:report AND not tag:trash AND tag:personal"
+virtual-mailboxes "calendar" "notmuch://?query=tag:cal AND tag:personal AND not tag:trash"
+virtual-mailboxes "newsletters" "notmuch://?query=tag:newsletters AND not tag:archive and NOT tag:trash"
+virtual-mailboxes "github" "notmuch://?query=tag:github_notification and NOT tag:archive and NOT tag:trash"
+virtual-mailboxes "sent" "notmuch://?query=tag:sent AND not tag:archive AND not tag:trash"

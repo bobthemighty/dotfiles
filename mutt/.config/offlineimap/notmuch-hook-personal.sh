@@ -37,6 +37,3 @@ notmuch tag +payments -inbox -- tag:new and from:service@paypal.co.uk
 
 # School
 notmuch tag +family +wraycommon -- tag:new and from:wray-common@scopay.com
-
-
-notmuch tag -new -- tag:new

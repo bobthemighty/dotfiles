@@ -14,6 +14,8 @@ notmuch tag +newsletters +unread -new -- tag:inbox and from:newsletter@example.o
 notmuch tag +rsyslog +unread -new -inbox -- tag:inbox and subject:'[rsyslog]*'
 #Noise
 notmuch tag -archive +noise +payment_failed -inbox --  tag:inbox and subject:"Payment Transaction Failed"
+notmuch tag -archive +noise +payment_failed -inbox --  to:f166bb-pay@made.com
+notmuch tag -archive +noise -inbox --  from:support@pcapredict.com
 notmuch tag -archive +noise +sitemap_failed -inbox --  tag:inbox and subject:"Sitemap generate Warnings"
 notmuch tag -archive +noise +payment_failed -inbox --  tag:inbox and from:"no-reply@rentabiliweb.com"
 #Accounts
