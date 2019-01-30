@@ -106,25 +106,24 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 
 " save session
 nnoremap <leader>s :mksession<CR>
-" open ag.vim
-" Close the current buffer
-map <leader>bd :Bclose<cr>
-" Close all the buffers
-map <leader>ba :1,1000 bd!<cr>
 " }}}
 
 
-" {{{ Plugins
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
+" {{{ Plugs
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-"{{{ Youcompleteme
-Plugin 'Valloric/YouCompleteMe'
-" }}}
+call plug#begin('~/.local/share/nvim/plugged')
+"
+"{{{
+Plug 'tpope/vim-fugitive'
+"}}}
 
 " {{{ Nord Colour Scheme
-Plugin 'arcticicestudio/nord-vim'
+Plug 'arcticicestudio/nord-vim'
 let g:nord_italic = 1
 let g:nord_underline = 1
 let g:nord_italic_comments = 1
@@ -136,7 +135,7 @@ colorscheme nord
 "}}}
 "
 " {{{ Nerdtree
-Plugin 'scrooloose/NerdTree'
+Plug 'scrooloose/NerdTree'
 map <leader>nn :NERDTreeToggle<cr>
 map <leader>nb :NERDTreeFromBookmark<Space>
 map <leader>nf :NERDTreeFind<cr>
@@ -144,7 +143,7 @@ nmap <leader>nc :NERDTreeCWD<CR>
 " }}}
 "
 " {{{ CtrlP
-Plugin 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_match_window = 'bottom,order:ttb'
 let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path_mode = 0
@@ -166,7 +165,7 @@ nnoremap <leader>a :Rg<Space>
 " }}}
 
 " {{{ Easymotion
-Plugin 'easymotion/vim-easymotion'
+Plug 'easymotion/vim-easymotion'
 nmap  <Leader>gw <Plug>(easymotion-bd-w)
 nmap  <Leader>L <Plug>(easymotion-bd-jk)
 
@@ -174,29 +173,29 @@ let g:EasyMotion_smartcase = 1
 " }}}
 
 " {{{ lightline
- Plugin 'itchyny/lightline.vim'
+ Plug 'itchyny/lightline.vim'
 "}}}
 
 " {{{ Vimwiki
-Plugin 'vimwiki/vimwiki'
-Plugin 'powerman/vim-plugin-AnsiEsc'
-Plugin 'farseer90718/vim-taskwarrior'
-Plugin 'tbabej/taskwiki'
+Plug 'vimwiki/vimwiki'
+Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'farseer90718/vim-taskwarrior'
+Plug 'tbabej/taskwiki'
 "}}}
 
 " {{{ Goyo
-Plugin 'junegunn/goyo.vim'
+Plug 'junegunn/goyo.vim'
 nmap <leader>z :Goyo<CR>
 "}}}
 "
 "" {{{ Draw It
-Plugin 'vim-scripts/DrawIt'
+Plug 'vim-scripts/DrawIt'
 "}}}
 "
 
 " {{{ fzf
-Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plugin 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 set rtp+=/usr/local/opt/fzf
 
 let g:fzf_tags_command = 'ctags --extra=+f -R'
@@ -221,29 +220,88 @@ nnoremap <leader>d :call fzf#vim#tags(expand('<cword>'), {'options': '--exact --
 
 " }}}
 
+" {{{
+" GTD
+" }}}
+Plug 'phb1/gtd.vim'
+:filetype plugin on
+:let g:gtd#dir = '~/notes'
+let g:gtd#default_action = 'inbox'
+let g:gtd#folder_command = 'ranger'
+let g:gtd#folding = 1
+let g:gtd#review = [
+\ '!todo @laptop',
+\ '!todo @work',
+\ '!inbox @work',
+\ '!waiting @work',
+\ '!inbox @laptop',
+\ '@music',
+\ '@to-read',
+\ ]
 
 " {{{ Tagbar
-Plugin 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 nmap <leader>st :TagbarToggle<CR>
 " }}}
 "
 "{{{ vim-go
-Plugin 'fatih/vim-go'
+Plug 'fatih/vim-go'
 "}}}
 
 " {{{ Calendar
-Plugin 'itchyny/calendar.vim'
+Plug 'itchyny/calendar.vim'
 let g:calendar_google_calendar = 1
 let g:calendar_google_task = 1
 "}}}
 
 " {{{ Gundo
-Plugin 'simnalamburt/vim-mundo'
+Plug 'simnalamburt/vim-mundo'
 nnoremap <leader>u :MundoToggle<CR>
 set undofile
 set undodir=~/.vim/undo
 " }}}
-Plugin 'luochen1990/rainbow'
+
+" {{{ Language Server
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+let g:LanguageClient_autoStart = 1
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+    \ 'python': ['/usr/bin/pyls'],
+    \ }
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+
+let g:LanguageClient_loggingFile =  expand('~/.local/share/nvim/LanguageClient.log')
+let g:LanguageClient_serverStderr = expand('~/.local/share/nvim/LanguageServer.log')
+let g:LanguageClient_loggingLevel = 'DEBUG'
+
+" }}}
+
+" {{{ ncm2
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+Plug 'ncm2/ncm2-ultisnips'
+Plug 'SirVer/ultisnips'
+
+augroup ncm2
+  au!
+  autocmd BufEnter * call ncm2#enable_for_buffer()
+  au User Ncm2PopupOpen set completeopt=noinsert,menuone,noselect
+  au User Ncm2PopupClose set completeopt=menuone
+augroup END
+
+" parameter expansion for selected entry via Enter
+inoremap <silent> <expr> <CR> (pumvisible() ? ncm2_ultisnips#expand_or("\<CR>", 'n') : "\<CR>")
+
+" cycle through completion entries with tab/shift+tab
+inoremap <expr> <TAB> pumvisible() ? "\<c-n>" : "\<TAB>"
+inoremap <expr> <s-tab> pumvisible() ? "\<c-p>" : "\<TAB>"
+" }}}
+
 " }}}
 
 
@@ -256,14 +314,19 @@ set writebackup
 "  }}}
 
 " {{{ Ale
-Plugin 'w0rp/ale'
+Plug 'w0rp/ale'
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\}
 let g:ale_fixers = {
 \        'python': [
+\           'black',
 \           'add_blank_lines_for_python_control_statements',
 \           'isort',
 \           'yapf'
 \           ],
-\        'javascript': ['prettier', 'remove_trailing_lines']
+\        'javascript': ['prettier', 'remove_trailing_lines'],
+\        'rust': ['rustfmt']
 \}
 nmap <Leader>f :ALEFix<CR>
 " }}}
@@ -271,17 +334,24 @@ nmap <Leader>f :ALEFix<CR>
 " {{{ Filetypes
 
 " {{{ Scala
-Plugin 'derekwyatt/vim-scala'
+Plug 'derekwyatt/vim-scala'
 " }}}
 
 " {{{ Golang
+autocmd FileType go nmap <buffer> <leader>ga <plug>(go-alternate-edit)
+autocmd FileType go nmap <buffer> <leader>gv <plug>(go-alternate-vertical)
+autocmd FileType go nmap <buffer> <leader>gt <plug>(go-test)
+autocmd FileType go nmap <buffer> <leader>f <plug>(go-fmt)
+autocmd FileType go nmap <buffer> <leader>gf <plug>(go-build)
+let g:go_metalinter_autosave = 1
+"
 " }}}
-call vundle#end()
+call plug#end()
 
 au BufNewFile,BufRead *.mjs set filetype=javascript
 
 " {{{ Python
-Plugin 'jmcantrell/vim-virtualenv'
+Plug 'jmcantrell/vim-virtualenv'
 
 let python_highlight_all = 1
 au FileType python syn keyword pythonDecorator True None False self
