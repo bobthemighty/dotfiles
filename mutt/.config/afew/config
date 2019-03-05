@@ -3,3 +3,25 @@
 [ListMailsFilter]
 [ArchiveSentMailsFilter]
 [InboxFilter]
+
+[Filter.1]
+query = 'pathogenix@gmail.com'
+tags = +personal
+message = Personal email
+
+[Filter.2]
+query = 'bob@made.com OR bob.gregory@made.com'
+tags = +work
+message = Work email
+
+[Filter.3]
+query = 'from:notifications@github.com AND tag:inbox'
+tags = -inbox;+github_notification
+
+[Filter.4]
+query = 'to:review_requested AND tag:github_notification'
+tags = +todo
+
+[Filter.5]
+query = 'from:peoplehremail.com and "Holiday Request"'
+tags = -inbox;+todo

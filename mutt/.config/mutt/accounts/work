@@ -7,8 +7,8 @@ set sendmail = "/usr/bin/msmtp -a work"
 set sendmail_wait = 0
 unset record
 
-virtual-mailboxes "inbox" "notmuch://?query=tag:inbox AND tag:work AND not tag:archived AND not tag:trash"
-virtual-mailboxes "todo" "notmuch://?query=tag:todo AND tag:work AND not tag:archived AND not tag:trash"
+virtual-mailboxes "inbox" "notmuch://?query=tag:inbox AND tag:work AND not tag:archive AND not tag:trash"
+virtual-mailboxes "todo" "notmuch://?query=tag:todo AND tag:work AND not tag:archive AND not tag:trash"
 virtual-mailboxes "alert" "notmuch://?query=tag:alert AND not tag:trash"
 virtual-mailboxes "reports" "notmuch://?query=tag:report AND not tag:trash AND tag:work"
 virtual-mailboxes "calendar" "notmuch://?query=tag:cal AND tag:work AND not tag:trash"
